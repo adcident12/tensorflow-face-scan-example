@@ -88,7 +88,7 @@ async function saveFaceDataToMySQL(detections) {
 async function insertToDb(obj) {
   if (obj.length > 0 && obj[0].score > 0.8) {
     $.ajax({
-      url: "insert.php", //endpoint API
+      url: "insert.php", //endpoint or endpoint API
       type: "POST",
       data: {
         faceId: obj[0].faceId,
@@ -124,7 +124,7 @@ async function insertToDb(obj) {
 async function getFromDb() {
   return $.ajax({
     url: "get.php",
-    type: "GET", //endpoint API
+    type: "GET", //endpoint or endpoint API
     beforeSend: function () {
       statusGet = false;
     },
