@@ -32,7 +32,7 @@ video.addEventListener("play", () => {
   const displaySize = { width: video.width, height: video.height };
   faceapi.matchDimensions(canvas, displaySize);
   myInterval = setInterval(async () => {
-    const minProbability = 0.05;
+    const minProbability = 0.8;
     const detections = await faceapi
       .detectAllFaces(video, new faceapi.TinyFaceDetectorOptions())
       .withFaceLandmarks()
