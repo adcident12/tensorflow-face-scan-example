@@ -19,12 +19,16 @@
       body {
         margin: 0;
         padding: 0;
-        width: 100vw;
-        height: 100vh;
+        font-family: "Kanit", sans-serif;
+      }
+
+      .center-screen {
         display: flex;
         justify-content: center;
         align-items: center;
-        font-family: "Kanit", sans-serif;
+        text-align: center;
+        min-height: 100vh;
+        position: relative;
       }
 
       canvas {
@@ -34,6 +38,8 @@
   </head>
 
   <body class="face-memory">
-    <video id="video" width="720" height="560" autoPlay="true" muted="true" playInline="true"></video>
+    <div class="center-screen">
+        <video id="video" width="720" height="560" autoplay="true" muted="true" playInline="true"></video>
+    </div>
   </body>
 </html>
