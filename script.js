@@ -5,6 +5,7 @@ let statusInsert = document.getElementsByClassName("face-memory").length > 0 ? t
 let statusGet = document.getElementsByClassName("face-scan").length > 0 ? true : false;
 let statusDetectionScan = document.getElementsByClassName("face-scan").length > 0 ? true : false;
 let faceDataFromDatabase = [];
+let refPerson = "";
 
 Promise.all([
   faceapi.nets.tinyFaceDetector.loadFromUri("/models"),
@@ -12,7 +13,24 @@ Promise.all([
   faceapi.nets.faceRecognitionNet.loadFromUri("/models"),
   faceapi.nets.faceExpressionNet.loadFromUri("/models"),
 ]).then(function () {
-  startVideo();
+  if (document.getElementsByClassName("face-memory").length > 0) {
+    document.getElementById("open-camera").addEventListener("click", (event) => {
+      if (document.getElementById("ref_person").value !== "") {
+        startVideo();
+      } else {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "Please enter in your personal references before collecting your face.",
+          showConfirmButton: false,
+          timer: 5000,
+          timerProgressBar: true,
+        });
+      }
+    });
+  } else {
+    startVideo();
+  }
 });
 
 function startVideo() {
@@ -94,6 +112,7 @@ async function insertToDb(obj) {
         faceId: obj[0].faceId,
         timestamp: obj[0].timestamp,
         landmarks: JSON.stringify(obj[0].landmarks),
+        ref_person: document.getElementById("ref_person").value,
       },
       beforeSend: function () {
         statusInsert = false;
@@ -105,13 +124,13 @@ async function insertToDb(obj) {
           Swal.fire({
             position: "center",
             icon: "success",
-            title: "Your work has been saved",
+            title: "Your work has been saved" + refPerson,
             showConfirmButton: false,
             timer: 2500,
             timerProgressBar: true,
           }).then((result) => {
             if (result.dismiss === Swal.DismissReason.timer) {
-              statusInsert = true;
+              // statusInsert = true;
               location.href = 'index.html';
             }
           });
@@ -152,6 +171,7 @@ async function faceMatcher(face_cam) {
               JSON.parse(faceData.landmarks).landmarks._positions
             )
           ) {
+            refPerson = faceData.ref_person;
             return true;
           }
         }
