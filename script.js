@@ -21,9 +21,9 @@ function startVideo() {
     function (stream) {
       video.srcObject = stream;
       streaming = stream;
-    },
-    (err) => alert(err)
-  );
+    }, function (error) {
+      console.log(error);
+    });
 }
 
 video.addEventListener("play", () => {
