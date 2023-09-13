@@ -78,7 +78,7 @@ video.addEventListener("play", () => {
         Swal.fire({
           position: "center",
           icon: "success",
-          title: "Found a face that matched data in the database.",
+          title: "Found a face that matched data in the database. " + refPerson.toUpperCase(),
           showConfirmButton: false,
           timer: 5000,
           timerProgressBar: true,
@@ -124,7 +124,7 @@ async function insertToDb(obj) {
           Swal.fire({
             position: "center",
             icon: "success",
-            title: "Your work has been saved" + refPerson,
+            title: "Your work has been saved",
             showConfirmButton: false,
             timer: 2500,
             timerProgressBar: true,

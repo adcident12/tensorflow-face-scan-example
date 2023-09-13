@@ -21,6 +21,7 @@ try {
             $tmp['id'] = $row['id'];
             $tmp['landmarks'] = json_decode($row['landmarks']);
             $tmp['timestamp'] = $row['timestamp'];
+            $tmp['ref_person'] = $row['ref_person'];
             array_push($arr["response"], $tmp);
         }
         $arr["status"] = "success";
